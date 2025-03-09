@@ -17,7 +17,7 @@ SimpleDockerCI-CD-Pipelinene/
 ├── app.py #   Flask  app
 ├── docker-compose.yml
 ├── Dockerfile # Dockerfile  to containerize the flask app
-├── docker.yml # Gihub Qction 
+├── docker.yml # Github Action config file 
 ├── requirements.txt # Dependencies 
 ```
 ## **TODO**
