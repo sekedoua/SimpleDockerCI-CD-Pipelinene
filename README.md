@@ -1,7 +1,7 @@
 #  Basic Docker project
 
 ## **Project overview**
- * Goal: Automate Docker image builds and deployments with CI/CD.
+ * Goal: Automate Docker image builds and deployments with CI/CD on Docker Hub.
  
 ## **Prerequisites**
 
