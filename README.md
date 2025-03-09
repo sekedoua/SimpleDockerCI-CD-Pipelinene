@@ -17,7 +17,7 @@ SimpleDockerCI-CD-Pipelinene/
 ├── app.py #   Flask  app
 ├── docker-compose.yml
 ├── Dockerfile # Dockerfile  to containerize the flask app
-├── docker.yml # Github Action config file 
+├── docker.yml # Github Actions config file 
 ├── requirements.txt # Dependencies 
 ```
 ## **TODO**
@@ -38,6 +38,8 @@ git push origin main
 ```
 
 ### **Create a GitHub Actions Workflow (.github/workflows/docker.yml)**
+![GitHub Actions start config](/img/2025-03-09104256.png)
+
 ```bash
 name: Docker Build & Push
 on:
@@ -53,9 +55,9 @@ jobs:
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
       - name: Build Docker Image
-        run: docker build -t myusername/myapp:latest .
+        run: docker build -t sekbil/simpledocker_ci-cd_pipeline:latest .
       - name: Push to Docker Hub
-        run: docker push myusername/myapp:latest
+        run: docker push sekbil/simpledocker_ci-cd_pipeline:latest
 ```
 
 
@@ -63,8 +65,10 @@ jobs:
 ```bash
  Add DOCKER_USERNAME and DOCKER_PASSWORD as repository secrets
 ```
-
+![Secrets in GitHub](/img/2025-03-09122624.png)
 ### **Push to GitHub & Trigger CI/CD Pipeline**
 ```bash
  Every push to main will build and push the Docker image.
 ```
+![GitHub Actions pass](/img/2025-03-09122213.png)
+![Docker Hub repo OK](/img/2025-03-09123122.png)
