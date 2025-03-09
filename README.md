@@ -1,7 +1,7 @@
 #  Basic Docker project
 
 ## **Project overview**
- * Simple app  with a database connection using Docker Compose , Flask + PostgreSQL
+ * Goal: Automate Docker image builds and deployments with CI/CD.
  
 ## **Prerequisites**
 
@@ -13,25 +13,58 @@
 ## **Project Structure**
 
 ```bash
-Multi-Container-Application-with-Docker-Compose/
+SimpleDockerCI-CD-Pipelinene/
 ├── app.py #   Flask  app
 ├── docker-compose.yml
 ├── Dockerfile # Dockerfile  to containerize the flask app
+├── docker.yml # Gihub Qction 
 ├── requirements.txt # Dependencies 
 ```
 ## **TODO**
 
 ### **Clone the repo**
 ```bash
-git clone  https://github.com/sekedoua/Multi-Container-Application-with-Docker-Compose.git
+git clone  https://github.com/sekedoua/SimpleDockerCI-CD-Pipelinene.git
 ```
-### **Build & Run the Docker Image**
+### **Build the Docker Image**
 ```bash
-cd Multi-Container-Application-with-Docker-Compose
-docker-compose up --build
+cd SimpleDockerCI-CD-Pipelinene
+docker build -t flask-app .
+```
+### **Push your Dockerized app to GitHub**
+```bash
+git push origin main
+
 ```
 
-### **Verify the Application:**
+### **Create a GitHub Actions Workflow (.github/workflows/docker.yml)**
 ```bash
-Open http://localhost:5000 in your browser.
----
+name: Docker Build & Push
+on:
+  push:
+    branches:
+    - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Build Docker Image
+        run: docker build -t myusername/myapp:latest .
+      - name: Push to Docker Hub
+        run: docker push myusername/myapp:latest
+```
+
+
+### **Configure Secrets in GitHub:**
+```bash
+ Add DOCKER_USERNAME and DOCKER_PASSWORD as repository secrets
+```
+
+### **Push to GitHub & Trigger CI/CD Pipeline**
+```bash
+ Every push to main will build and push the Docker image.
+```
